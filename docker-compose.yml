@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  question2a:
+    image: ${DOCKER_REGISTRY-}question2a
+    build:
+      context: .
+      dockerfile: Question2A/Dockerfile

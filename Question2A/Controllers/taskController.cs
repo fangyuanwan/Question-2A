@@ -40,9 +40,11 @@ namespace Question2A.Controllers
             try
             {
                 var token = JObject.Parse(result)["token"];
-                
-             
-                    if (token.ToString().Contains("undefined"))
+                var id = JObject.Parse(result)["id"];
+
+
+
+                if (token.ToString().Contains("undefined"))
                     {
                         Console.WriteLine("someting wrong");
                         return result;
@@ -69,7 +71,16 @@ namespace Question2A.Controllers
                                                  autoDelete: false,
                                                  arguments: null);
 
-                            string message = credential.task;
+                        var myData = new
+                        {
+                            id = id,
+                            token = token,
+                            task = credential.task,
+                            time = DateTime.Now,
+                         
+                        };
+                        string message = JsonConvert.SerializeObject(myData);
+                        // string message = credential.task;
                             var body = Encoding.UTF8.GetBytes(message);
 
                             channel.BasicPublish(exchange: "",
